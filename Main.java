@@ -13,7 +13,7 @@ class Main{
 
         try (Scanner sc = new Scanner(System.in)) {
             //display a basic menu?
-            while (true) {
+            while (flag) {
 
                 System.out.print("\033[H\033[2J");  
                 System.out.flush();
@@ -92,7 +92,7 @@ class Main{
 
                         System.out.println("Added contact : " + newContact);
 
-                    case 4:
+                    case 6:
                         flag = false;
 
                         System.out.print("\033[H\033[2J");  

@@ -8,6 +8,9 @@ public class Text {
     private boolean textUnderline;
     private boolean textLight;
 
+    //get console size details
+    ConsoleSize consoleSize = new ConsoleSize();
+    private int consoleWidth = consoleSize.getWidth();
     
     public Text(String... attributes) {
         for (String attr : attributes) {
@@ -34,7 +37,7 @@ public class Text {
         }
     }
 
-    public String RenderText(String contentString) {
+    public String RenderText(String contentString, String alignText) {
         StringBuilder escapeCode = new StringBuilder("\u001B[");
 
         // Add style attributes
@@ -54,15 +57,30 @@ public class Text {
         // Set foreground color (if provided)
         if (textColor != null && !textColor.isEmpty()) {
             int[] rgb = hexToRgb(textColor);
-            escapeCode.append("38;2;").append(rgb[0]).append(";").append(rgb[1]).append(";").append(rgb[2]).append(";");
+            escapeCode.append("38;2;").append(rgb[0]).append(";").append(rgb[1]).append(";").append(rgb[2]).append("m");
         }
 
-        // Remove trailing semicolon and add "m" for mode
-        escapeCode.deleteCharAt(escapeCode.length() - 1);
-        escapeCode.append("m");
+        int contentLength = contentString.length();
+        int leftovers = this.consoleWidth - contentLength;
+
+        if(alignText.equalsIgnoreCase("center")){
+
+            int spaceToLeft = leftovers/2;
+
+            contentString = " ".repeat(spaceToLeft) + contentString;
+
+        }
+        if(alignText.equalsIgnoreCase("right")){
+
+            contentString = " ".repeat(leftovers) + contentString;
+
+        }
+
+        //add whitespace for leftover characters
+        contentString = contentString + " ".repeat(consoleWidth - contentString.length());
 
         // Construct the styled text
-        String styledText = escapeCode + contentString + "\u001B[0m"; // Reset all styles
+        String styledText = escapeCode + contentString + "\n\u001B[0m"; // Reset all styles
 
         return styledText;
     }

@@ -25,3 +25,21 @@
 - [x] Make a seperate class for both Contact and User first and implement their various functions for eg, add new contact
 - [] Make classes for each UI component to do the stuff it needs to do. for eg, login gives an interface for user login
 - [] Call everythning from main class
+
+## Flow
+
+### Onboarding
+- [login] with option to signup
+- [signup] with option to login
+
+### Post Account Creation
+- [show all contacts] with option to view contact
+- [add a contact]
+- [search for a contact] with option to view contact
+- [logout]
+
+### Contact Options
+- [view contact]
+- [edit contact]
+- [delete contact]
+
